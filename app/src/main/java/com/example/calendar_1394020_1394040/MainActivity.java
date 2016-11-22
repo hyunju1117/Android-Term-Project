@@ -29,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.month:
-                getSupportFragmentManager().beginTransaction().replace(R.id.activity_main,new MonthFragment()).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout,new MonthFragment()).addToBackStack(null).commit();
                 return true;
             case R.id.week:
-                getSupportFragmentManager().beginTransaction().replace(R.id.activity_main,new WeekFragment()).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout,new WeekFragment()).addToBackStack(null).commit();
                 return true;
             case R.id.day:
-                getSupportFragmentManager().beginTransaction().replace(R.id.activity_main,new DayFragment()).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainlayout,new DayFragment()).addToBackStack(null).commit();
                 return true;
             case R.id.edit:
                 startActivity(new Intent(this,EditActivity.class));
