@@ -7,5 +7,15 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="Theme.Custom" parent="Theme.AppCompat.DayNight">
+        <item name="android:calendarViewStyle">@style/Widget.CalendarView.Custom</item>
+    </style>
+
+    <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
+        <item name="android:focusedMonthDateColor">#4e2181</item>
+        <item name="android:weekNumberColor">#7b4044</item>
+        <item name="android:weekDayTextAppearance">@color/colorAccent</item>
+        <item name="android:dateTextAppearance">@color/colorPrimaryDark</item>
+    </style>
 
 </resources>
