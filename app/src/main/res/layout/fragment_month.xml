@@ -1,20 +1,36 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.calendar_1394020_1394040.MonthFragment">
 
-    <CalendarView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/calendarView"
-        android:layout_alignParentTop="true"
-        android:clickable="true" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary" >
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/calendarView"
-        android:id="@+id/listView"/>
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/calendarBackground"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
 
-</RelativeLayout>
+        <GridView
+            android:layout_marginTop="10dp"
+            android:id="@+id/gridview"
+            android:layout_weight="0.35"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:numColumns="7"
+            android:listSelector="@color/transparent" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

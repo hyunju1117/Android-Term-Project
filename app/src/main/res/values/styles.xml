@@ -6,16 +6,22 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/background_material_light</item>
     </style>
+
     <style name="Theme.Custom" parent="Theme.AppCompat.DayNight">
         <item name="android:calendarViewStyle">@style/Widget.CalendarView.Custom</item>
     </style>
 
     <style name="Widget.CalendarView.Custom" parent="android:Widget.CalendarView">
-        <item name="android:focusedMonthDateColor">#4e2181</item>
-        <item name="android:weekNumberColor">#7b4044</item>
-        <item name="android:weekDayTextAppearance">@color/colorAccent</item>
-        <item name="android:dateTextAppearance">@color/colorPrimaryDark</item>
+        <item name="android:weekNumberColor">#ffffff</item>//일요일
+        <item name="android:background">@color/background_material_light</item>
+        <item name="android:focusedMonthDateColor">#ffffff</item>//현재달폰트색
+        <item name="android:unfocusedMonthDateColor">#00000000</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:selectedWeekBackgroundColor">#00000000</item>
+        <item name="android:showWeekNumber">false</item>
+        <item name="android:weekSeparatorLineColor">#00000000</item>
     </style>
 
 </resources>

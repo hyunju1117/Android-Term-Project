@@ -3,4 +3,5 @@
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#808080</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="todayColor">#FFE95451</color>
 </resources>

@@ -17,10 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.Custom"/>
+        <activity android:name=".MainActivity" />
         <activity android:name=".EditActivity"/>
         <activity android:name=".DetailActivity"/>
+        <fragment android:name=".MonthFragment"/>
     </application>
 
 </manifest>
