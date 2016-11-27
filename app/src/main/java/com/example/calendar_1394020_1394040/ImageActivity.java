@@ -16,7 +16,7 @@ public class ImageActivity extends AppCompatActivity {
         String IMAGE_URL = getIntent().getStringExtra("image_uri");
 
         try{
-            final ImageView iv = (ImageView)findViewById(R.id.photo);
+            final ImageView iv = (ImageView)findViewById(R.id.image);
             Uri uri = Uri.parse(IMAGE_URL);
             final Bitmap bitmap = BitmapFactory.decodeFile(uri.getPath());
             iv.setImageBitmap(bitmap);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -44,52 +45,23 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:hint="장소"/>
-
         <EditText
             android:id="@+id/editmemo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
             android:hint="메모" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/multibtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:text="multimedia"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/photo"/>
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:id="@+id/image"/>
 
-            <Button
-                android:id="@+id/voiceRecBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:text="음성녹음"
-                style="@style/Widget.AppCompat.Button.Small" />
-            <Button
-                android:id="@+id/imageCaptureBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:text="사진촬영"
-                style="@style/Widget.AppCompat.Button.Small" />
-            <Button
-                android:id="@+id/videoRecBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:text="비디오녹음"
-                style="@style/Widget.AppCompat.Button.Small" />
-
-        </LinearLayout>
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/multi_list"/>
 
     </LinearLayout>
 

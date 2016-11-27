@@ -20,6 +20,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".EditActivity"/>
         <activity android:name=".DetailActivity"/>
+        <activity android:name=".MemoActivity"/>
         <activity android:name=".VideoActivity"></activity>
         <activity android:name=".ImageActivity"></activity>
     </application>
