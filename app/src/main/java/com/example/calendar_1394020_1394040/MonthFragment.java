@@ -1,15 +1,18 @@
 package com.example.calendar_1394020_1394040;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class MonthFragment extends Fragment {
         date = (TextView)rootview.findViewById(R.id.date_text);
         gridView = (GridView) rootview.findViewById(R.id.gridview);
 
+
         // 오늘 날짜를 세팅 해준다.
         long now = System.currentTimeMillis();
         final Date date = new Date(now);
@@ -63,14 +67,29 @@ public class MonthFragment extends Fragment {
 
         //이번달 1일 무슨요일인지 판단 mCal.set(Year,Month,Day)
         mCal.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date)) - 1, 1);
-        int dayNum = mCal.get(Calendar.DAY_OF_WEEK);
+        final int dayNum = mCal.get(Calendar.DAY_OF_WEEK);
 
-        //1일 - 요일 매칭 시키기 위해 공백 add
+        //요일 매칭 공백 add
         for (int i = 1; i < dayNum; i++) {dayList.add("");}
         setCalendarDate(mCal.get(Calendar.MONTH) + 1);
 
         gridAdapter = new GridAdapter(getActivity().getApplicationContext(), dayList);
         gridView.setAdapter(gridAdapter);
+
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(dayList.get(position).equals("")) {
+                    ;
+                } else{
+                    Intent intent = new Intent(MonthFragment.this.getActivity(),EditActivity.class);
+                    startActivity(intent);
+                }
+                //요일까지 position 에 들어가므로 -7, 요일매칭 공백 빼주고 +1
+                Toast.makeText(getActivity().getApplicationContext(), "position: " + (position-7-dayNum+1), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     return rootview;
 
@@ -147,8 +166,6 @@ public class MonthFragment extends Fragment {
             return convertView;
         }
     }
-
-
 
     private class ViewHolder {
         TextView item_text;

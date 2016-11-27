@@ -20,7 +20,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".EditActivity"/>
         <activity android:name=".DetailActivity"/>
-        <fragment android:name=".MonthFragment"/>
+        <activity android:name=".VideoActivity"></activity>
+        <activity android:name=".ImageActivity"></activity>
     </application>
 
 </manifest>
