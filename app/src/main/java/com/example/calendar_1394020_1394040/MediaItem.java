@@ -2,16 +2,16 @@ package com.example.calendar_1394020_1394040;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
 
 public class MediaItem {
-    final static int RAW=0;
-    final static int SDCARD=1;
-    final static int WEB=2;
-    final static int AUDIO=3;
-    final static int VIDEO=4;
-    final static int IMAGE=5;
+    final static int SDCARD=0;
+    final static int AUDIO=1;
+    final static int VIDEO=2;
+    final static int IMAGE=3;
 
     int source;
     String name;
@@ -35,4 +35,5 @@ public class MediaItem {
             bitmap = BitmapFactory.decodeFile(uri.getPath());
         else bitmap = null;
     }
+
 }

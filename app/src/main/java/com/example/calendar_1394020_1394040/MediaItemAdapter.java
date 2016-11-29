@@ -60,14 +60,8 @@ public class MediaItemAdapter extends BaseAdapter {
         // Set Text 02
         TextView source = (TextView) view.findViewById(R.id.source);
         switch(mItems.get(i).source) {
-            case MediaItem.RAW:
-                source.setText("RAW");
-                break;
             case MediaItem.SDCARD:
                 source.setText("SDCARD");
-                break;
-            case MediaItem.WEB:
-                source.setText("WEB");
                 break;
 
         }

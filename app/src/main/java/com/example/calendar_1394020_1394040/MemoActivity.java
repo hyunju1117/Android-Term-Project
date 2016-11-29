@@ -2,6 +2,7 @@ package com.example.calendar_1394020_1394040;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
@@ -32,6 +33,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -44,6 +46,7 @@ public class MemoActivity extends Activity {
     private String recFileN = null;
     private File mPhotoFile =null;
     private String mPhotoFileName = null;
+    public static Context mcon;
 
     private int mPlaybackPosition = 0;   // media play 위치
 
@@ -51,6 +54,8 @@ public class MemoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
+
+        mcon = this;
 
         if (savedInstanceState != null) // 액티비티가 재시작되는 경우, 기존에 저장한 상태 복구
             mPhotoFileName = savedInstanceState.getString("mPhotoFileName");
@@ -69,7 +74,7 @@ public class MemoActivity extends Activity {
                     voiceRecBtn.setText("녹음중지");
                 } else {
                     stopAudioRec();
-                    voiceRecBtn.setText("음석녹음");
+                    voiceRecBtn.setText("음성녹음");
                 }
             }
         });
@@ -109,7 +114,7 @@ public class MemoActivity extends Activity {
         }
     }
 
-    private void initListView() {
+    public void initListView() {
         mListView = (ListView) findViewById(R.id.multi_list);
         ArrayList<MediaItem> mediaList = prepareDataSource();
         mAdapter = new MediaItemAdapter(this, R.layout.item, mediaList);
@@ -328,6 +333,7 @@ public class MemoActivity extends Activity {
             ex.printStackTrace();
         }
     }
+
 
     protected void onStop() {
         super.onStop();

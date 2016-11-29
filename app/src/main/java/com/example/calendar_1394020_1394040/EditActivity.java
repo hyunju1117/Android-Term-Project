@@ -45,7 +45,6 @@ public class EditActivity extends Activity implements OnClickListener {
     int mId;
     String today;
     EditText editDate, editTitle, editTime, editlocate, editMemo;
-    FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
 
     /**
@@ -66,7 +65,7 @@ public class EditActivity extends Activity implements OnClickListener {
         mId = intent.getIntExtra("ParamID", -1);
         today = intent.getStringExtra("ParamDate");
 
-        helper = new MyDBHelper(this, "schedule.db", null, 1);
+        helper = new MyDBHelper(this, "Today.db", null, 1);
 
         if (mId == -1) {
             editDate.setText(today);
@@ -114,7 +113,7 @@ public class EditActivity extends Activity implements OnClickListener {
         switch (v.getId()) {
             case R.id.btnsave:
                 if (mId != -1) {
-                    db.execSQL("UPDATE schedule SET title='"
+                    db.execSQL("UPDATE today SET title='"
                             + editTitle.getText().toString() + "',date='"
                             + editDate.getText().toString() + "', time='"
                             + editTime.getText().toString() + "', locate='"
@@ -123,7 +122,7 @@ public class EditActivity extends Activity implements OnClickListener {
                             + "';");
                 } else {
                     try {
-                        db.execSQL("INSERT INTO schedule VALUES(null, '"
+                        db.execSQL("INSERT INTO today VALUES(null, '"
                                 + editTitle.getText().toString() + "', '"
                                 + editDate.getText().toString() + "', '"
                                 + editTime.getText().toString() + "', '"
@@ -138,7 +137,7 @@ public class EditActivity extends Activity implements OnClickListener {
                 break;
             case R.id.btndel:
                 if (mId != -1) {
-                    db.execSQL("DELETE FROM schedule WHERE _id='" + mId + "';");
+                    db.execSQL("DELETE FROM today WHERE _id='" + mId + "';");
                     helper.close();
                 }
                 setResult(RESULT_OK);

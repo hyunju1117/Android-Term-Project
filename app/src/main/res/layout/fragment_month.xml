@@ -1,36 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.calendar_1394020_1394040.MonthFragment">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/colorPrimary" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/edit1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="년도 입력" />
 
         <TextView
-            android:id="@+id/date_text"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/calendarBackground"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="년" />
 
-        <GridView
-            android:layout_marginTop="10dp"
-            android:id="@+id/gridview"
-            android:layout_weight="0.35"
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:numColumns="7"
-            android:listSelector="@color/transparent" />
+        <EditText
+            android:id="@+id/edit2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="월을 입력" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="월" />
+
+        <Button
+            android:id="@+id/bt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="클릭" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <GridView
+            android:id="@+id/grid1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:numColumns="7" >
+        </GridView>
+    </LinearLayout>
 
 </LinearLayout>
