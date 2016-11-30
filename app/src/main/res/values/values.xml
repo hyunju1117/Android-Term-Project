@@ -2,5 +2,5 @@
 <resources>
     <color name="background_material_light">#ffffff</color>
     <color name="transparent">#00000000</color>
-    <color name="calendarBackground">#FFE95451</color>
+    <color name="calendarBackground">#e95451</color>
 </resources>
