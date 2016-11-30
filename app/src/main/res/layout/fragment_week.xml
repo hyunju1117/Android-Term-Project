@@ -1,13 +1,244 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.calendar_1394020_1394040.WeekFragment">
+    android:orientation="vertical"
+    android:padding="0dp" >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+ <TextView
+     android:id="@+id/date_text"
+     android:layout_width="match_parent"
+     android:layout_height="50dp"
+     android:background="@color/calendarBackground"
+     android:gravity="center_vertical"
+     android:paddingLeft="10dp"
+     android:textColor="@color/colorPrimary"
+     android:textSize="20sp"
+     android:textAlignment="center"
+     android:layout_alignParentTop="true"/>
+
+ <RelativeLayout
+     android:layout_width="match_parent"
+     android:layout_height="50dp"
+     android:layout_below="@+id/date_text"
+     android:id="@+id/weekdayLayout"
+     android:layout_marginTop="6dp">
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="25dp"
+      android:id="@+id/dayLayout">
+
+   <TextView
+       android:text="Sun"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/sunTextView"
+       android:layout_weight="1"
+       android:textSize="15dp"
+       android:textStyle="bold"
+       android:textAlignment="center"/>
+
+   <TextView
+       android:text="Mon"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/monTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="15dp"
+       android:textAlignment="center"/>
+
+   <TextView
+       android:text="Tue"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/tueTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="15dp"
+       android:textAlignment="center"/>
+
+   <TextView
+       android:text="Wed"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/wedTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="15dp"
+       android:textAlignment="center" />
+
+   <TextView
+       android:text="Thu"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/thuTextView5"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="15dp"
+       android:textAlignment="center"/>
+
+   <TextView
+       android:text="Fri"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/friTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="15dp"
+       android:textAlignment="center"/>
+
+   <TextView
+       android:text="Sat"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/satTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="15dp"
+       android:textAlignment="center"/>
+  </LinearLayout>
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="25dp"
+      android:id="@+id/dateLayout"
+      android:layout_below="@+id/dayLayout">
+
+   <TextView
+       android:layout_height="match_parent"
+       android:id="@+id/sunDateTextView"
+       android:layout_weight="1"
+       android:textSize="18dp"
+       android:textStyle="bold"
+       android:textAlignment="center"
+       android:layout_width="match_parent" />
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/monDateTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="18dp"
+       android:textAlignment="center"/>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/tueDateTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="18dp"
+       android:textAlignment="center"/>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/wedDateTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="18dp"
+       android:textAlignment="center"/>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/thuDateTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="18dp"
+       android:textAlignment="center"/>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/friDateTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="18dp"
+       android:textAlignment="center"/>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/satDateTextView"
+       android:layout_weight="1"
+       android:textStyle="bold"
+       android:textSize="18dp"
+       android:textAlignment="center"/>
+  </LinearLayout>
+
+ </RelativeLayout>
+
+ <View
+     android:id="@+id/dividerView"
+     android:layout_width="fill_parent"
+     android:layout_height="1dp"
+     android:background="@color/calendarBackground"
+     android:layout_below="@+id/weekdayLayout"
+     android:layout_marginTop="3dp" />
+
+ <ImageButton
+     app:srcCompat="@drawable/nt_arrow"
+     android:id="@+id/week_ntBtn"
+     android:layout_width="@android:dimen/app_icon_size"
+     android:layout_height="@android:dimen/app_icon_size"
+     android:layout_alignParentTop="true"
+     android:layout_alignParentRight="true"
+     android:layout_alignParentEnd="true"
+     android:backgroundTint="@color/transparent"
+     android:layout_alignBottom="@+id/date_text" />
+
+ <ImageButton
+     app:srcCompat="@drawable/pr_arrow"
+     android:id="@+id/week_prBtn"
+     android:layout_width="@android:dimen/app_icon_size"
+     android:layout_height="@android:dimen/app_icon_size"
+     android:layout_alignParentTop="true"
+     android:layout_alignParentLeft="true"
+     android:layout_alignParentStart="true"
+     android:backgroundTint="@color/transparent"
+     android:layout_alignBottom="@+id/date_text" />
+
+ <ScrollView
+     android:id="@+id/calendarScrollView"
+     android:layout_width="match_parent"
+     android:layout_height="fill_parent"
+     android:overScrollMode="never"
+     android:padding="0dp"
+     android:scrollbars="none"
+     android:fadingEdge="none"
+     android:layout_alignParentBottom="true"
+     android:layout_alignParentLeft="true"
+     android:layout_alignParentStart="true"
+     android:layout_below="@+id/dividerView">
+
+  <RelativeLayout
+      android:id="@+id/calendarRelativeLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+   <LinearLayout
+       android:id="@+id/calendarSplitterRelativeLayout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:baselineAligned="false"
+       android:padding="0dp" >
+
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/weekView"
+        android:numColumns="7"/>
+   </LinearLayout>
 
-</FrameLayout>
+  </RelativeLayout>
+ </ScrollView>
+
+</RelativeLayout>

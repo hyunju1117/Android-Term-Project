@@ -91,7 +91,7 @@ public class MonthFragment extends Fragment {
 			mItems.add("");
 		}
 
-		current.setDate(32);// 32�ϱ��� �Է��ϸ� 1�Ϸ� �ٲ��ش�.
+		current.setDate(32);
 		int last = 32 - current.getDate();
 
 		for (int i = 1; i <= last; i++) {
