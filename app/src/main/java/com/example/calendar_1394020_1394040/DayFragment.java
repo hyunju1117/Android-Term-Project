@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -27,18 +28,20 @@ public class DayFragment extends Fragment{
     ListView list;
     private static int dayNumber = 0;
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final View rootview = inflater.inflate(R.layout.fragment_day, container, false);
         date = (TextView)rootview.findViewById(R.id.dayTitle);
+        list = (ListView) rootview.findViewById(R.id.dayListView);
 
         caculateDay(dayNumber);
+        loadDB();
 
-        today = date.getText().toString();
-        date.setText(today);
+        //date.setText(today);
 
-        helper = new MyDBHelper(getActivity().getApplicationContext(), "Today.db", null, 1);
+        /*helper = new MyDBHelper(getActivity().getApplicationContext(), "Today.db", null, 1);
         SQLiteDatabase db = helper.getWritableDatabase();
 
         cursor = db.rawQuery(
@@ -51,9 +54,16 @@ public class DayFragment extends Fragment{
 
         ListView list = (ListView) rootview.findViewById(R.id.dayListView);
         list.setAdapter(adapter);
-        // list.setOnItemClickListener(this);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                Intent intent = new Intent(getActivity().getApplicationContext(), EditActivity.class);
+                cursor.moveToPosition(position);
+                intent.putExtra("ParamID", cursor.getInt(0));
+                startActivityForResult(intent, 0);
+            }
+        });
 
-        helper.close();
+        helper.close();*/
 
 
         ImageButton prBtn = (ImageButton) rootview.findViewById(R.id.day_prBtn);
@@ -62,6 +72,7 @@ public class DayFragment extends Fragment{
             public void onClick(View v) {
                 dayNumber = dayNumber -1 ;
                 caculateDay(dayNumber);
+                loadDB();
             }
         });
         ImageButton ntBtn = (ImageButton) rootview.findViewById(R.id.day_ntBtn);
@@ -70,10 +81,36 @@ public class DayFragment extends Fragment{
             public void onClick(View v) {
                 dayNumber = dayNumber +1 ;
                 caculateDay(dayNumber);
+                loadDB();
             }
         });
 
         return rootview;
+    }
+    public void loadDB (){
+        helper = new MyDBHelper(getActivity().getApplicationContext(), "Today.db", null, 1);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        cursor = db.rawQuery(
+                "SELECT * FROM today WHERE date = '" + today + "'", null);
+
+        adapter = new SimpleCursorAdapter(getActivity(),
+                android.R.layout.simple_list_item_2, cursor, new String[] {
+                "title", "time" }, new int[] { android.R.id.text1,
+                android.R.id.text2 });
+
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                Intent intent = new Intent(getActivity().getApplicationContext(), EditActivity.class);
+                cursor.moveToPosition(position);
+                intent.putExtra("ParamID", cursor.getInt(0));
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        adapter.notifyDataSetChanged();
+        helper.close();
     }
 
     public void caculateDay(int dayNumber){
@@ -85,6 +122,7 @@ public class DayFragment extends Fragment{
         String formattedDate = df.format(c.getTime());
 
         date.setText(formattedDate);
+        today = date.getText().toString();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
