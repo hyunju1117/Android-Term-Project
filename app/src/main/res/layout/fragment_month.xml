@@ -5,38 +5,39 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_weight="0"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:id="@+id/MonthTilte"
         android:background="@color/calendarBackground">
+
+        <ImageButton
+            app:srcCompat="@drawable/nt_arrow"
+            android:id="@+id/day_ntBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/transparent" />
 
         <ImageButton
             app:srcCompat="@drawable/pr_arrow"
             android:id="@+id/day_prBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/transparent"
-            android:layout_alignBottom="@+id/weekTitle" />
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/transparent" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/datetext"/>
-
-        <ImageButton
-            app:srcCompat="@drawable/nt_arrow"
-            android:id="@+id/day_ntBtn"
-            android:layout_width="@android:dimen/app_icon_size"
-            android:layout_height="@android:dimen/app_icon_size"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:backgroundTint="@color/transparent"
-            android:layout_alignBottom="@+id/weekTitle" />
-
-    </LinearLayout>
+            android:id="@+id/datetext"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
