@@ -1,24 +1,40 @@
 package com.example.calendar_1394020_1394040;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MonthFragment extends Fragment {
 	ArrayList<String> mItems;
 	ArrayAdapter<String> adapter;
 	TextView textYear;
 	TextView textMon;
+	TextView dateText;
+	Date date = new Date();
+	private static int year = new Date().getYear() + 1900;
+	private static int mon = new Date().getMonth() + 1;
+	final Calendar c = Calendar.getInstance();
+	final SimpleDateFormat df = new SimpleDateFormat("yyyy / MM ",Locale.KOREA);
+
 
 	/** Called when the activity is first created. */
 	@Override
@@ -26,9 +42,10 @@ public class MonthFragment extends Fragment {
 							 Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		final View rootview = inflater.inflate(R.layout.fragment_month,container,false);
-
-		textYear = (TextView) rootview.findViewById(R.id.edit1);
-		textMon = (TextView) rootview.findViewById(R.id.edit2);
+		//getActivity().getActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>"));
+		String formattedDate = df.format(date);
+		dateText = (TextView)rootview.findViewById(R.id.datetext);
+		dateText.setText(year + "/" + mon);
 		GridView grid = (GridView) rootview.findViewById(R.id.grid1);
 
 		mItems = new ArrayList<String>(); //dayList
@@ -42,20 +59,49 @@ public class MonthFragment extends Fragment {
 					;
 				} else {
 					Intent intent = new Intent(getActivity().getApplicationContext(), DetailActivity.class);
-					intent.putExtra("Param1", textYear.getText().toString() + "/"
-							+ textMon.getText().toString() + "/" + mItems.get(arg2));
+					intent.putExtra("Param1", year + "/"
+							+ mon + "/" + mItems.get(arg2));
 					startActivity(intent);
 				}
 			}
 		});
 
-		Date date = new Date();// ���ÿ� ��¥�� ���� ���ش�.
-		int year = date.getYear() + 1900;
+		//Date date = new Date();// ���ÿ� ��¥�� ���� ���ش�.
+		/*int year = date.getYear() + 1900;
 		int mon = date.getMonth() + 1;
 		textYear.setText(year + "");
-		textMon.setText(mon + "");
+		textMon.setText(mon + "");*/
+
+
 
 		fillDate(year, mon);
+
+		ImageButton ntMonth = (ImageButton)rootview.findViewById(R.id.day_ntBtn);
+		ImageButton prMonth = (ImageButton)rootview.findViewById(R.id.day_prBtn);
+		ntMonth.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mon = mon + 1;
+				fillDate(year,mon);
+				if(mon>12){
+					mon = mon - 12;
+					year = year + 1;
+				}
+				dateText.setText(year + "/" + mon);
+			}
+		});
+		prMonth.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mon = mon - 1;
+				fillDate(year,mon);
+				if(mon<1){
+					mon = mon + 12;
+					year = year - 1;
+				}
+				dateText.setText(year + "/" + mon);
+			}
+		});
 
 		/*Button btnmove = (Button) rootview.findViewById(R.id.bt1);
 		btnmove.setOnClickListener(new AdapterView.OnClickListener() {

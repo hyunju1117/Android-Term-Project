@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:background="@color/calendarBackground">
 
-        <EditText
-            android:id="@+id/edit1"
+        <ImageButton
+            app:srcCompat="@drawable/pr_arrow"
+            android:id="@+id/day_prBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="년도 입력" />
-
+            android:backgroundTint="@color/transparent"
+            android:layout_alignBottom="@+id/weekTitle" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="년" />
+            android:id="@+id/datetext"/>
 
-        <EditText
-            android:id="@+id/edit2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="월을 입력" />
+        <ImageButton
+            app:srcCompat="@drawable/nt_arrow"
+            android:id="@+id/day_ntBtn"
+            android:layout_width="@android:dimen/app_icon_size"
+            android:layout_height="@android:dimen/app_icon_size"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/transparent"
+            android:layout_alignBottom="@+id/weekTitle" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="월" />
-
-        <Button
-            android:id="@+id/bt1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="클릭" />
     </LinearLayout>
 
     <LinearLayout
