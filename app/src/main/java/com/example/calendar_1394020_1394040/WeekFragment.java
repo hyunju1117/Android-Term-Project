@@ -34,7 +34,7 @@ import java.util.Locale;
 
 public class WeekFragment extends Fragment{
 
-    private TextView weekday1, weekday2, weekday3, weekday4, weekday5, weekday6, weekday7;
+    private TextView weekday1, weekday2, weekday3, weekday4, weekday5, weekday6, weekday7,dateTextView;
     private ArrayList<String> dayList;
     private ArrayList<String> todayList;
     private static int weekNumber = 0;
@@ -58,6 +58,7 @@ public class WeekFragment extends Fragment{
         weekday5=(TextView)rootview.findViewById(R.id.thuDateTextView);
         weekday6=(TextView)rootview.findViewById(R.id.friDateTextView);
         weekday7=(TextView)rootview.findViewById(R.id.satDateTextView);
+        dateTextView=(TextView)rootview.findViewById(R.id.dateTextView);
         list = (ListView) rootview.findViewById(R.id.weekListView);
 
         dayList = new ArrayList<String>();
@@ -68,14 +69,16 @@ public class WeekFragment extends Fragment{
         weekday1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dateTextView.setText(todayList.get(0));
                 today = todayList.get(0);
-                loadDB();;
+                loadDB();
             }
         });
         weekday2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 today = todayList.get(1);
+                dateTextView.setText(today);
                 loadDB();
             }
         });
@@ -83,6 +86,7 @@ public class WeekFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 today = todayList.get(2);
+                dateTextView.setText(today);
                 loadDB();
             }
         });
@@ -90,6 +94,7 @@ public class WeekFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 today = todayList.get(3);
+                dateTextView.setText(today);
                 loadDB();
             }
         });
@@ -97,6 +102,7 @@ public class WeekFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 today = todayList.get(4);
+                dateTextView.setText(today);
                 loadDB();
             }
         });
@@ -104,6 +110,7 @@ public class WeekFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 today = todayList.get(5);
+                dateTextView.setText(today);
                 loadDB();
             }
         });
@@ -111,6 +118,7 @@ public class WeekFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 today = todayList.get(6);
+                dateTextView.setText(today);
                 loadDB();
             }
         });
@@ -121,6 +129,7 @@ public class WeekFragment extends Fragment{
             public void onClick(View v) {
                 weekNumber = weekNumber - 1;
                 calculateWeek(weekNumber);
+                dateTextView.setText("");
                 loadDB();
             }
         });
@@ -130,6 +139,7 @@ public class WeekFragment extends Fragment{
             public void onClick(View v) {
                 weekNumber = weekNumber +1;
                 calculateWeek(weekNumber);
+                dateTextView.setText("");
                 loadDB();
             }
         });
@@ -185,6 +195,7 @@ public class WeekFragment extends Fragment{
         weekday5.setText(dayList.get(4));
         weekday6.setText(dayList.get(5));
         weekday7.setText(dayList.get(6));
+
     }
 }
 

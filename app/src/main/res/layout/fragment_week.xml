@@ -13,6 +13,16 @@
      android:id="@+id/btBackground"
      android:background="@color/calendarBackground">
 
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:id="@+id/dateTextView"
+      android:textAlignment="center"
+      android:textColor="@color/colorPrimary"
+      android:textSize="20sp"
+      android:layout_centerInParent="true"
+      android:paddingTop="10dp" />
+
   <ImageButton
       app:srcCompat="@drawable/nt_arrow"
       android:id="@+id/week_ntBtn"
@@ -155,7 +165,7 @@
        android:textStyle="bold"
        android:textAlignment="center"
        android:layout_width="match_parent"
-       android:clickable="false" />
+       android:textColor="@drawable/selector_color"/>
 
    <TextView
        android:layout_width="match_parent"
@@ -164,7 +174,8 @@
        android:layout_weight="1"
        android:textStyle="bold"
        android:textSize="18dp"
-       android:textAlignment="center"/>
+       android:textAlignment="center"
+       android:textColor="@drawable/selector_color"/>
 
    <TextView
        android:layout_width="match_parent"
@@ -173,7 +184,8 @@
        android:layout_weight="1"
        android:textStyle="bold"
        android:textSize="18dp"
-       android:textAlignment="center"/>
+       android:textAlignment="center"
+       android:textColor="@drawable/selector_color"/>
 
    <TextView
        android:layout_width="match_parent"
@@ -182,7 +194,8 @@
        android:layout_weight="1"
        android:textStyle="bold"
        android:textSize="18dp"
-       android:textAlignment="center"/>
+       android:textAlignment="center"
+       android:textColor="@drawable/selector_color"/>
 
    <TextView
        android:layout_width="match_parent"
@@ -191,7 +204,8 @@
        android:layout_weight="1"
        android:textStyle="bold"
        android:textSize="18dp"
-       android:textAlignment="center"/>
+       android:textAlignment="center"
+       android:textColor="@drawable/selector_color"/>
 
    <TextView
        android:layout_width="match_parent"
@@ -200,7 +214,8 @@
        android:layout_weight="1"
        android:textStyle="bold"
        android:textSize="18dp"
-       android:textAlignment="center"/>
+       android:textAlignment="center"
+       android:textColor="@drawable/selector_color"/>
 
    <TextView
        android:layout_width="match_parent"
@@ -209,7 +224,8 @@
        android:layout_weight="1"
        android:textStyle="bold"
        android:textSize="18dp"
-       android:textAlignment="center"/>
+       android:textAlignment="center"
+       android:textColor="@drawable/selector_color"/>
   </LinearLayout>
 
  </RelativeLayout>
