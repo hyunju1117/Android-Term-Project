@@ -33,13 +33,14 @@ public class MonthFragment extends Fragment {
 	private static int year = new Date().getYear() + 1900;
 	private static int mon = new Date().getMonth() + 1;
 	final Calendar c = Calendar.getInstance();
-	final SimpleDateFormat df = new SimpleDateFormat("yyyy / MM ",Locale.KOREA);
+	final SimpleDateFormat df = new SimpleDateFormat("yyyy / M ",Locale.KOREA);
 
 
 	/** Called when the activity is first created. */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
+		((MainActivity)getActivity()).setTitle(Html.fromHtml("<font color='#808080'>Monthly</font>"));
 		super.onCreate(savedInstanceState);
 		final View rootview = inflater.inflate(R.layout.fragment_month,container,false);
 		//getActivity().getActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>"));

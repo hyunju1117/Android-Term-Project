@@ -1,18 +1,26 @@
 package com.example.calendar_1394020_1394040;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +35,19 @@ import java.util.Locale;
 public class WeekFragment extends Fragment{
 
     private TextView weekday1, weekday2, weekday3, weekday4, weekday5, weekday6, weekday7;
-    private ArrayList<String> dayList; //일 저장 리스트
-    private static int weekNumber = -1;
+    private ArrayList<String> dayList;
+    private ArrayList<String> todayList;
+    private static int weekNumber = 0;
     Calendar c;
+    MyDBHelper helper;
+    String today;
+    Cursor cursor;
+    SimpleCursorAdapter adapter;
+    ListView list;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity)getActivity()).setTitle(Html.fromHtml("<font color='#808080'>Weekly</font>"));
         super.onCreate(savedInstanceState);
         final View rootview = inflater.inflate(R.layout.fragment_week, container, false);
 
@@ -43,10 +58,62 @@ public class WeekFragment extends Fragment{
         weekday5=(TextView)rootview.findViewById(R.id.thuDateTextView);
         weekday6=(TextView)rootview.findViewById(R.id.friDateTextView);
         weekday7=(TextView)rootview.findViewById(R.id.satDateTextView);
+        list = (ListView) rootview.findViewById(R.id.weekListView);
 
         dayList = new ArrayList<String>();
+        todayList = new ArrayList<String>();
 
         calculateWeek(weekNumber);
+
+        weekday1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                today = todayList.get(0);
+                loadDB();;
+            }
+        });
+        weekday2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                today = todayList.get(1);
+                loadDB();
+            }
+        });
+        weekday3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                today = todayList.get(2);
+                loadDB();
+            }
+        });
+        weekday4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                today = todayList.get(3);
+                loadDB();
+            }
+        });
+        weekday5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                today = todayList.get(4);
+                loadDB();
+            }
+        });
+        weekday6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                today = todayList.get(5);
+                loadDB();
+            }
+        });
+        weekday7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                today = todayList.get(6);
+                loadDB();
+            }
+        });
 
        ImageButton prBtn = (ImageButton) rootview.findViewById(R.id.week_prBtn);
         prBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +121,7 @@ public class WeekFragment extends Fragment{
             public void onClick(View v) {
                 weekNumber = weekNumber - 1;
                 calculateWeek(weekNumber);
+                loadDB();
             }
         });
         ImageButton ntBtn = (ImageButton) rootview.findViewById(R.id.week_ntBtn);
@@ -62,21 +130,52 @@ public class WeekFragment extends Fragment{
             public void onClick(View v) {
                 weekNumber = weekNumber +1;
                 calculateWeek(weekNumber);
+                loadDB();
             }
         });
 
         return rootview;
     }
+    public void loadDB (){
+        helper = new MyDBHelper(getActivity().getApplicationContext(), "Today.db", null, 1);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        cursor = db.rawQuery(
+                "SELECT * FROM today WHERE date = '" + today + "'", null);
+
+        adapter = new SimpleCursorAdapter(getActivity(),
+                android.R.layout.simple_list_item_2, cursor, new String[] {
+                "title", "time" }, new int[] { android.R.id.text1,
+                android.R.id.text2 });
+
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                Intent intent = new Intent(getActivity().getApplicationContext(), EditActivity.class);
+                cursor.moveToPosition(position);
+                intent.putExtra("ParamID", cursor.getInt(0));
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        adapter.notifyDataSetChanged();
+        helper.close();
+    }
     private void calculateWeek(int weekFromToday) {
         Calendar c = Calendar.getInstance();
         dayList.clear();
+        todayList.clear();
         c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         c.set(Calendar.WEEK_OF_YEAR,
                 c.get(Calendar.WEEK_OF_YEAR)+weekFromToday);
 
-        SimpleDateFormat df = new SimpleDateFormat("dd");
+        SimpleDateFormat dfYear = new SimpleDateFormat("yyyy");
+        SimpleDateFormat dfMonth = new SimpleDateFormat("M");
+        SimpleDateFormat dfDay = new SimpleDateFormat("d");
+
         for (int i = 0; i < 7; i++) {
-            dayList.add(df.format(c.getTime()));
+            dayList.add(dfDay.format(c.getTime()));
+            todayList.add(dfYear.format(c.getTime())+"/"+dfMonth.format(c.getTime())+"/"+dfDay.format(c.getTime()));
             c.add(Calendar.DATE, 1);
         }
         weekday1.setText(dayList.get(0));

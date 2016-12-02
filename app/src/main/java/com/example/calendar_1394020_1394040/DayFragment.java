@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class DayFragment extends Fragment{
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity)getActivity()).setTitle(Html.fromHtml("<font color='#808080'>Daily</font>"));
         super.onCreate(savedInstanceState);
         final View rootview = inflater.inflate(R.layout.fragment_day, container, false);
         date = (TextView)rootview.findViewById(R.id.dayTitle);
@@ -38,33 +40,6 @@ public class DayFragment extends Fragment{
 
         caculateDay(dayNumber);
         loadDB();
-
-        //date.setText(today);
-
-        /*helper = new MyDBHelper(getActivity().getApplicationContext(), "Today.db", null, 1);
-        SQLiteDatabase db = helper.getWritableDatabase();
-
-        cursor = db.rawQuery(
-                "SELECT * FROM today WHERE date = '" + today + "'", null);
-
-        adapter = new SimpleCursorAdapter(getActivity(),
-                android.R.layout.simple_list_item_2, cursor, new String[] {
-                "title", "time" }, new int[] { android.R.id.text1,
-                android.R.id.text2 });
-
-        ListView list = (ListView) rootview.findViewById(R.id.dayListView);
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Intent intent = new Intent(getActivity().getApplicationContext(), EditActivity.class);
-                cursor.moveToPosition(position);
-                intent.putExtra("ParamID", cursor.getInt(0));
-                startActivityForResult(intent, 0);
-            }
-        });
-
-        helper.close();*/
-
 
         ImageButton prBtn = (ImageButton) rootview.findViewById(R.id.day_prBtn);
         prBtn.setOnClickListener(new View.OnClickListener() {
@@ -118,14 +93,14 @@ public class DayFragment extends Fragment{
 
         c.add(Calendar.DATE, dayNumber);
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/d",Locale.KOREA);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/M/d",Locale.KOREA);
         String formattedDate = df.format(c.getTime());
 
         date.setText(formattedDate);
         today = date.getText().toString();
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+   /* public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         // super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -141,5 +116,5 @@ public class DayFragment extends Fragment{
                 }
                 break;
         }
-    }
+    }*/
 }
