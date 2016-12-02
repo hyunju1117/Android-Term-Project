@@ -37,10 +37,8 @@ public class DayFragment extends Fragment{
         final View rootview = inflater.inflate(R.layout.fragment_day, container, false);
         date = (TextView)rootview.findViewById(R.id.dayTitle);
         list = (ListView) rootview.findViewById(R.id.dayListView);
-
         caculateDay(dayNumber);
         loadDB();
-
         ImageButton prBtn = (ImageButton) rootview.findViewById(R.id.day_prBtn);
         prBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +75,7 @@ public class DayFragment extends Fragment{
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Intent intent = new Intent(getActivity().getApplicationContext(), EditActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), DetailActivity.class);
                 cursor.moveToPosition(position);
                 intent.putExtra("ParamID", cursor.getInt(0));
                 startActivityForResult(intent, 0);

@@ -161,7 +161,7 @@ public class WeekFragment extends Fragment{
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Intent intent = new Intent(getActivity().getApplicationContext(), EditActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), DetailActivity.class);
                 cursor.moveToPosition(position);
                 intent.putExtra("ParamID", cursor.getInt(0));
                 startActivityForResult(intent, 0);

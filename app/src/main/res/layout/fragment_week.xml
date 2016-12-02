@@ -31,8 +31,7 @@
       android:layout_alignParentTop="true"
       android:layout_alignParentRight="true"
       android:layout_alignParentEnd="true"
-      android:backgroundTint="@color/transparent"
-      android:layout_alignBottom="@+id/weekTitle" />
+      android:backgroundTint="@color/transparent"/>
 
   <ImageButton
       app:srcCompat="@drawable/pr_arrow"

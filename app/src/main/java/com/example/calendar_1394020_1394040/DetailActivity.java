@@ -105,4 +105,5 @@ public class DetailActivity extends AppCompatActivity{
     }
         setResult(RESULT_OK);
     }
+
 }
