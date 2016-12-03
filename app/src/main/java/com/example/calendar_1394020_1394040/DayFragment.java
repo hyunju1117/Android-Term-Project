@@ -61,11 +61,11 @@ public class DayFragment extends Fragment{
         return rootview;
     }
     public void loadDB (){
-        helper = new MyDBHelper(getActivity().getApplicationContext(), "Today.db", null, 1);
+        helper = new MyDBHelper(getActivity().getApplicationContext(), "todaydb.db", null, 1);
         SQLiteDatabase db = helper.getWritableDatabase();
 
         cursor = db.rawQuery(
-                "SELECT * FROM today WHERE date = '" + today + "'", null);
+                "SELECT * FROM todaydb WHERE date = '" + today + "'", null);
 
         adapter = new SimpleCursorAdapter(getActivity(),
                 android.R.layout.simple_list_item_2, cursor, new String[] {
@@ -91,7 +91,7 @@ public class DayFragment extends Fragment{
 
         c.add(Calendar.DATE, dayNumber);
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy/M/d",Locale.KOREA);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-M-d",Locale.KOREA);
         String formattedDate = df.format(c.getTime());
 
         date.setText(formattedDate);

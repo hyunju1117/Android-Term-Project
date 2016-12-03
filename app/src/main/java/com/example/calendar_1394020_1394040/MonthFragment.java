@@ -45,14 +45,12 @@ public class MonthFragment extends Fragment {
 	final SimpleDateFormat df = new SimpleDateFormat("yyyy / MM ",Locale.KOREA);
 
 
-	/** Called when the activity is first created. */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		((MainActivity)getActivity()).setTitle(Html.fromHtml("<font color='#808080'>Monthly</font>"));
 		super.onCreate(savedInstanceState);
 		final View rootview = inflater.inflate(R.layout.fragment_month,container,false);
-		//getActivity().getActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + getString(R.string.app_name) + "</font>"));
 		String formattedDate = df.format(date);
 		dateText = (TextView)rootview.findViewById(R.id.datetext);
 		dateText.setText(year + "/" + mon);
@@ -71,24 +69,14 @@ public class MonthFragment extends Fragment {
 				} else {
 
 					Intent intent = new Intent();
-					//(getActivity().getApplicationContext(), MonthFragment.class);
-					intent.putExtra("Param1", year + "/"
-							+ mon + "/" + mItems.get(arg2));
-					//startActivity(intent);
+					intent.putExtra("Param1", year + "-"
+							+ mon + "-" + mItems.get(arg2));
 					today = intent.getStringExtra("Param1");
 					loadDB();
 				}
 
 			}
 		});
-
-		//Date date = new Date();// ���ÿ� ��¥�� ���� ���ش�.
-		/*int year = date.getYear() + 1900;
-		int mon = date.getMonth() + 1;
-		textYear.setText(year + "");
-		textMon.setText(mon + "");*/
-
-
 
 		fillDate(year, mon);
 
@@ -104,7 +92,8 @@ public class MonthFragment extends Fragment {
 					year = year + 1;
 				}
 				dateText.setText(year + "/" + mon);
-			}
+				loadDB();
+		}
 		});
 		prMonth.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -116,20 +105,9 @@ public class MonthFragment extends Fragment {
 					year = year - 1;
 				}
 				dateText.setText(year + "/" + mon);
+				loadDB();
 			}
 		});
-
-		/*Button btnmove = (Button) rootview.findViewById(R.id.bt1);
-		btnmove.setOnClickListener(new AdapterView.OnClickListener() {
-			public void onClick(View view) {
-				if (mItems.get(arg).getId() == R.id.bt1) {
-					int year = Integer.parseInt(textYear.getText().toString());
-					int mon = Integer.parseInt(textMon.getText().toString());
-					fillDate(year, mon);
-				}
-			}
-		});*/
-
 
 		return rootview;
 
@@ -163,11 +141,11 @@ public class MonthFragment extends Fragment {
 
 	}
 	public void loadDB (){
-		helper = new MyDBHelper(getActivity().getApplicationContext(), "Today.db", null, 1);
+		helper = new MyDBHelper(getActivity().getApplicationContext(), "todaydb.db", null, 1);
 		SQLiteDatabase db = helper.getWritableDatabase();
 
 		cursor = db.rawQuery(
-				"SELECT * FROM today WHERE date = '" + today + "'", null);
+				"SELECT * FROM todaydb WHERE date = '" + today + "'", null);
 
 		cursorAdapter = new SimpleCursorAdapter(getActivity(),
 				android.R.layout.simple_list_item_2, cursor, new String[] {

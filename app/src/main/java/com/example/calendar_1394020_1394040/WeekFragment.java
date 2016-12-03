@@ -147,11 +147,11 @@ public class WeekFragment extends Fragment{
         return rootview;
     }
     public void loadDB (){
-        helper = new MyDBHelper(getActivity().getApplicationContext(), "Today.db", null, 1);
+        helper = new MyDBHelper(getActivity().getApplicationContext(), "todaydb.db", null, 1);
         SQLiteDatabase db = helper.getWritableDatabase();
 
         cursor = db.rawQuery(
-                "SELECT * FROM today WHERE date = '" + today + "'", null);
+                "SELECT * FROM todaydb WHERE date = '" + today + "'", null);
 
         adapter = new SimpleCursorAdapter(getActivity(),
                 android.R.layout.simple_list_item_2, cursor, new String[] {
@@ -185,7 +185,7 @@ public class WeekFragment extends Fragment{
 
         for (int i = 0; i < 7; i++) {
             dayList.add(dfDay.format(c.getTime()));
-            todayList.add(dfYear.format(c.getTime())+"/"+dfMonth.format(c.getTime())+"/"+dfDay.format(c.getTime()));
+            todayList.add(dfYear.format(c.getTime())+"-"+dfMonth.format(c.getTime())+"-"+dfDay.format(c.getTime()));
             c.add(Calendar.DATE, 1);
         }
         weekday1.setText(dayList.get(0));

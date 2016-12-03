@@ -45,32 +45,27 @@
         android:id="@+id/detailMemo"
         android:textStyle="normal|bold" />
 
-    <ScrollView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="332dp">
+        android:layout_height="wrap_content"
+        android:id="@+id/detailMemo_text" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:id="@+id/pic_list" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/detailMemo_text" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:id="@+id/vid_list"
+        android:layout_weight="0.58" />
 
-            <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView" />
-
-            <VideoView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/videoView" />
-
-        </LinearLayout>
-    </ScrollView>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:id="@+id/multi_list"
+        android:layout_weight="0.51" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
