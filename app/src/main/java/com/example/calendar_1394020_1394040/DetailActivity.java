@@ -108,7 +108,9 @@ public class DetailActivity extends AppCompatActivity{
         });
         editBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
-               editSchedule();
+                Intent intent=new Intent(DetailActivity.this,EditActivity.class);
+                intent.putExtra("ParamID2",cursor.getInt(0));
+                startActivityForResult(intent,0);
             }
         });
 
@@ -255,13 +257,6 @@ public class DetailActivity extends AppCompatActivity{
         dialog.show();    // 알림창 띄우기
         return dialog;
     }
-    public void editSchedule(){
-        SQLiteDatabase db = helper.getWritableDatabase();
-        Intent intent=new Intent(DetailActivity.this,EditActivity.class);
-        intent.putExtra("ParamID",cursor.getInt(0));
-        startActivityForResult(intent,0);
-    }
-
     public void deleteSchedule(){
         SQLiteDatabase db = helper.getWritableDatabase();
         if (mId != -1) {

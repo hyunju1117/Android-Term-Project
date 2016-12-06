@@ -19,30 +19,54 @@
             android:hint="@string/title"
             android:gravity="left" />
 
-        <EditText
-            android:id="@+id/editdate"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="날짜"/>
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-            <EditText
+            <Button
+                android:text="Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/edittime"
-                android:hint="시간"/>
+                android:id="@+id/dateEditBtn" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/endtime"
-            android:hint="종료 시간"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dateTextView"
+                android:layout_weight="1"
+                android:hint="Date"/>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:text="Start Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startTimeEditBtn" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/StartTimeTextView"
+                android:layout_weight="1"
+                android:hint="Start Time"/>
+            <Button
+                android:text="End Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/endTimeEditBtn" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/EndTimeTextView"
+                android:layout_weight="1"
+                android:hint="End Time"/>
+        </LinearLayout>
         <EditText
             android:id="@+id/editlocate"
             android:layout_width="match_parent"
