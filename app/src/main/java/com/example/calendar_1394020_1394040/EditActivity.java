@@ -46,7 +46,7 @@ public class EditActivity extends Activity implements OnClickListener {
     MyDBHelper helper;
     int mId;
     String today,currentTimeStamp;
-    public EditText editDate, editTitle, editTime, editlocate, editMemo;
+    public EditText editDate, editTitle, editTime, editlocate, editMemo,editendTime;
     TextView tttt;
     private MediaItemAdapter mAdapter;
     private MediaPlayer mMediaPlayer;
@@ -70,6 +70,7 @@ public class EditActivity extends Activity implements OnClickListener {
         editDate = (EditText) findViewById(R.id.editdate);
         editTitle = (EditText) findViewById(R.id.edittitle);
         editTime = (EditText) findViewById(R.id.edittime);
+        editendTime = (EditText)findViewById(R.id.endtime);
         editlocate = (EditText) findViewById(R.id.editlocate);
         editMemo = (EditText) findViewById(R.id.editmemo);
         tttt = (TextView)findViewById(R.id.tttt);
@@ -87,12 +88,13 @@ public class EditActivity extends Activity implements OnClickListener {
             Cursor cursor = db.rawQuery("SELECT * FROM todaydb WHERE _id='" + mId
                     + "'", null);
 
-            if (cursor.moveToNext()) {
+            if (cursor.moveToNext()) { // data를 추가시킬때 다음 행에 커서를 이동해 추가 시킬 수 있게 함
                 editTitle.setText(cursor.getString(1));
                 editDate.setText(cursor.getString(2));
                 editTime.setText(cursor.getString(3));
-                editlocate.setText(cursor.getString(4));
-                editMemo.setText(cursor.getString(5));
+                editendTime.setText(cursor.getString(4));
+                editlocate.setText(cursor.getString(5));
+                editMemo.setText(cursor.getString(6));
             }
             helper.close();
         }
@@ -258,7 +260,7 @@ public class EditActivity extends Activity implements OnClickListener {
                 saveFile(sourceUri, destination);
                 //mAdapter.addItem(new MediaItem(MediaItem.SDCARD, recFileN, Uri.fromFile(destination) ,MediaItem.VIDEO));
             } else
-                Toast.makeText(getApplicationContext(), "savw", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "save", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -302,6 +304,7 @@ public class EditActivity extends Activity implements OnClickListener {
                     db.execSQL("UPDATE todaydb SET title='" + editTitle.getText().toString()
                             + "',date='" + editDate.getText().toString()
                             + "', time='" + editTime.getText().toString()
+                            + "', endtime='"+editendTime.getText().toString()
                             + "', locate='" + editlocate.getText().toString()
                             + "', memo='" + editMemo.getText().toString()
                             + "', photo='" + mPhotoFileName
@@ -315,6 +318,7 @@ public class EditActivity extends Activity implements OnClickListener {
                                 + editTitle.getText().toString() + "', '"
                                 + editDate.getText().toString() + "', '"
                                 + editTime.getText().toString() + "', '"
+                                + editendTime.getText().toString() + "', '"
                                 + editlocate.getText().toString() + "', '"
                                 + editMemo.getText().toString() + "', '"
                                 + mPhotoFileName + "', '"

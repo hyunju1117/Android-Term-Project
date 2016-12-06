@@ -43,9 +43,10 @@ public class DetailActivity extends AppCompatActivity{
     private String mPhotoFileName = null;
     private int mPlaybackPosition = 0;   // media play 위치
     int mId;
+    int position;
     String today,title, date;
     Cursor cursor;
-    TextView textTitle,textDate,textTime,textLocation,textMemo;
+    TextView textTitle,textDate,textTime,textLocation,textMemo,textendTime;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +61,7 @@ public class DetailActivity extends AppCompatActivity{
         textTitle= (TextView)findViewById(R.id.detailTitle);
         textDate= (TextView)findViewById(R.id.detailDate);
         textTime= (TextView)findViewById(R.id.detailTime);
+        textendTime = (TextView)findViewById(R.id.detailendTime);
         textLocation= (TextView)findViewById(R.id.detailLocation);
         textMemo= (TextView)findViewById(R.id.detailMemo_text);
         currentDateFormat();
@@ -82,8 +84,9 @@ public class DetailActivity extends AppCompatActivity{
                 textTitle.setText(cursor.getString(1));
                 textDate.setText(cursor.getString(2));
                 textTime.setText(cursor.getString(3));
-                textLocation.setText(cursor.getString(4));
-                textMemo.setText(cursor.getString(5));
+                textendTime.setText(cursor.getString(4));
+                textLocation.setText(cursor.getString(5));
+                textMemo.setText(cursor.getString(6));
             }
 
             helper.close();
@@ -105,9 +108,7 @@ public class DetailActivity extends AppCompatActivity{
         });
         editBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
-                Intent intent=new Intent(DetailActivity.this,EditActivity.class);
-                intent.putExtra("ParamID", cursor.getInt(0));
-                startActivityForResult(intent,0);
+               editSchedule();
             }
         });
 
@@ -253,6 +254,12 @@ public class DetailActivity extends AppCompatActivity{
         AlertDialog dialog = builder.create();    // 알림창 객체 생성
         dialog.show();    // 알림창 띄우기
         return dialog;
+    }
+    public void editSchedule(){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Intent intent=new Intent(DetailActivity.this,EditActivity.class);
+        intent.putExtra("ParamID",cursor.getInt(0));
+        startActivityForResult(intent,0);
     }
 
     public void deleteSchedule(){
