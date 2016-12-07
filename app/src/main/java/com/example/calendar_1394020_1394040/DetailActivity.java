@@ -1,5 +1,6 @@
 package com.example.calendar_1394020_1394040;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,15 +13,18 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -28,6 +32,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class DetailActivity extends AppCompatActivity{
@@ -39,8 +44,10 @@ public class DetailActivity extends AppCompatActivity{
     private MediaPlayer mMediaPlayer;
     private int mSelectePoistion;
     private MediaRecorder mMediaRecorder;
-    private File mPhotoFile =null;
-    private String mPhotoFileName = null;
+    String recFileN = null;
+    String mVideoFileN=null;
+    File mPhotoFile =null;
+    String mPhotoFileName = null;
     private int mPlaybackPosition = 0;   // media play 위치
     int mId;
     int position;
@@ -54,6 +61,7 @@ public class DetailActivity extends AppCompatActivity{
         list = (ListView)findViewById(R.id.multi_list);
         vlist = (ListView)findViewById(R.id.vid_list);
         plist =(ListView)findViewById(R.id.pic_list);
+        setTitle(Html.fromHtml("<font color='#808080'>일정 상세보기</font>"));
 
         if (savedInstanceState != null) // 액티비티가 재시작되는 경우, 기존에 저장한 상태 복구
             mPhotoFileName = savedInstanceState.getString("mPhotoFileName");
@@ -68,16 +76,16 @@ public class DetailActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
         mId = intent.getIntExtra("ParamID", -1);
-        today = intent.getStringExtra("ParamDate");
+        today = intent.getStringExtra("Param1");
 
 
-        helper = new MyDBHelper(this, "todaydb.db", null, 1);
+        helper = new MyDBHelper(this, "daydb.db", null, 1);
 
         if (mId == -1) {
             textDate.setText(today);
         } else {
             SQLiteDatabase db = helper.getWritableDatabase();
-            cursor = db.rawQuery("SELECT * FROM todaydb WHERE _id='" + mId
+            cursor = db.rawQuery("SELECT * FROM daydb WHERE _id='" + mId
                     + "'", null);
 
             if (cursor.moveToNext()) {
@@ -87,6 +95,8 @@ public class DetailActivity extends AppCompatActivity{
                 textendTime.setText(cursor.getString(4));
                 textLocation.setText(cursor.getString(5));
                 textMemo.setText(cursor.getString(6));
+
+
             }
 
             helper.close();
@@ -109,19 +119,19 @@ public class DetailActivity extends AppCompatActivity{
         editBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view){
                 Intent intent=new Intent(DetailActivity.this,EditActivity.class);
-                intent.putExtra("ParamID2",cursor.getInt(0));
+                intent.putExtra("ParamID",cursor.getInt(0));
                 startActivityForResult(intent,0);
             }
         });
 
     }
     private void loadDB () {
-        helper = new MyDBHelper(this, "todaydb.db", null, 1);
+        helper = new MyDBHelper(this, "daydb.db", null, 1);
         SQLiteDatabase db = helper.getWritableDatabase();
         title = textTitle.getText().toString();
         date = textDate.getText().toString();
         cursor = db.rawQuery(
-                "SELECT * FROM todaydb WHERE voice = 'VOICE"+ date + title +".mp4'", null);
+                "SELECT * FROM daydb WHERE voice = 'VOICE"+ date + title +".mp4'", null);
 
 
         mAdapter = new SimpleCursorAdapter(this,
@@ -161,14 +171,14 @@ public class DetailActivity extends AppCompatActivity{
     }
 
     public void loadVD(){
-        helper = new MyDBHelper(this, "todaydb.db", null, 1);
+        helper = new MyDBHelper(this, "daydb.db", null, 1);
         SQLiteDatabase db = helper.getWritableDatabase();
 
         title = textTitle.getText().toString();
         date = textDate.getText().toString();
 
         cursor = db.rawQuery(
-                "SELECT * FROM todaydb WHERE video = 'VIDEO"+ date + title +".mp4'", null);
+                "SELECT * FROM daydb WHERE video = 'VIDEO"+ date + title +".mp4'", null);
 
 
         vAdapter = new SimpleCursorAdapter(this,
@@ -182,7 +192,8 @@ public class DetailActivity extends AppCompatActivity{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(DetailActivity.this, VideoActivity.class);
-                intent.putExtra("video_uri", "file://" + Environment.getExternalStorageDirectory().getPath() +"/Movies/VIDEO" + date + title +".mp4");
+                Uri uri = Uri.parse("file://" + Environment.getExternalStorageDirectory().getPath() + "/Movies/VIDEO" + date + title + ".mp4");
+                intent.putExtra("video_uri", uri.toString());
                 startActivity(intent);
                 vAdapter.notifyDataSetChanged();
                 helper.close();
@@ -191,14 +202,14 @@ public class DetailActivity extends AppCompatActivity{
     }
 
     public void loadPIC(){
-        helper = new MyDBHelper(this, "todaydb.db", null, 1);
+        helper = new MyDBHelper(this, "daydb.db", null, 1);
         SQLiteDatabase db = helper.getWritableDatabase();
 
         title = textTitle.getText().toString();
         date = textDate.getText().toString();
 
         cursor = db.rawQuery(
-                "SELECT * FROM todaydb WHERE photo = 'IMG"+ date + title +".jpg'", null);
+                "SELECT * FROM daydb WHERE photo = 'IMG"+ date + title +".jpg'", null);
 
 
         pAdapter = new SimpleCursorAdapter(this,
@@ -211,8 +222,9 @@ public class DetailActivity extends AppCompatActivity{
         plist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(DetailActivity.this, VideoActivity.class);
-                intent.putExtra("image_uri","file://" + Environment.getExternalStorageDirectory().getPath() +"/Pictures/IMG" + date + title +".jpg" );
+                Intent intent = new Intent(DetailActivity.this, ImageActivity.class);
+                Uri uri = Uri.parse("file://" + Environment.getExternalStorageDirectory().getPath() + "/Pictures/IMG" + date + title +".jpg");
+                intent.putExtra("image_uri",uri.toString());
                 startActivity(intent);
                 pAdapter.notifyDataSetChanged();
                 helper.close();
@@ -260,7 +272,7 @@ public class DetailActivity extends AppCompatActivity{
     public void deleteSchedule(){
         SQLiteDatabase db = helper.getWritableDatabase();
         if (mId != -1) {
-        db.execSQL("DELETE FROM todaydb WHERE _id='" + mId + "';");
+        db.execSQL("DELETE FROM daydb WHERE _id='" + mId + "';");
         helper.close();
     }
         setResult(RESULT_OK);

@@ -17,7 +17,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
 
-        db.execSQL("CREATE TABLE todaydb(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        db.execSQL("CREATE TABLE daydb(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "title TEXT, " + "date TEXT , "+ "time TEXT, " +"endtime TEXT, "+ "locate TEXT, "
                 + "memo TEXT, " + "photo TEXT , " + "video TEXT , " + "voice TEXT);");
     }
@@ -25,7 +25,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
-        db.execSQL("DROP TABLE IF EXIST todaydb;");
+        db.execSQL("DROP TABLE IF EXIST daydb;");
         onCreate(db);
     }
 

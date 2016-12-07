@@ -28,7 +28,8 @@
                 android:text="Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/dateEditBtn" />
+                android:id="@+id/dateEditBtn"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless.Small" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -48,7 +49,8 @@
                 android:text="Start Time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/startTimeEditBtn" />
+                android:id="@+id/startTimeEditBtn"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless.Small" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,7 +61,8 @@
                 android:text="End Time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/endTimeEditBtn" />
+                android:id="@+id/endTimeEditBtn"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless.Small" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,6 +82,26 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:hint="메모" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/voicet"
+            android:layout_weight="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pict"
+            android:layout_weight="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/vidt"
+            android:layout_weight="1" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

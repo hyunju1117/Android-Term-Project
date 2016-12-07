@@ -46,29 +46,38 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.GregorianCalendar;
+import android.app.*;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.DatePicker.OnDateChangedListener;
+import android.widget.TimePicker.OnTimeChangedListener;
+
 
 public class EditActivity extends Activity implements OnClickListener {
     int mId;
-    String today,currentTimeStamp;
+    String today,currentTimeStamp,today2;
     public EditText editTitle, editlocate, editMemo;
-    TextView TextDate,TextStartTime,TextEndTime;
-    private MediaItemAdapter mAdapter;
+    TextView TextDate,TextStartTime,TextEndTime,pict,voicet,vidt;
     private MediaPlayer mMediaPlayer;
     private MediaRecorder mMediaRecorder;
-    private String recFileN ;
-    private File mPhotoFile =null;
-    private String mPhotoFileName = null;
-    private File mVideoFile =null;
-    private String mVideoFileName = null;
+    String recFileN ;
+    File mPhotoFile =null;
+    String mPhotoFileName = null;
+    File mVideoFile =null;
+    String mVideoFileName = null;
     private int mPlaybackPosition = 0;
     private String title;
     MyDBHelper helper;
     int year,month,day,hour,minute;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
 
         if (savedInstanceState != null) // 액티비티가 재시작되는 경우, 기존에 저장한 상태 복구
             mPhotoFileName = savedInstanceState.getString("mPhotoFileName");
@@ -85,24 +94,29 @@ public class EditActivity extends Activity implements OnClickListener {
         day= calendar.get(Calendar.DAY_OF_MONTH);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
+        pict=(TextView)findViewById(R.id.pict);
+        voicet=(TextView)findViewById(R.id.voicet);
+        vidt=(TextView)findViewById(R.id.vidt);
+
+
 
 
         Intent intent = getIntent();
         mId = intent.getIntExtra("ParamID", -1);
         today = intent.getStringExtra("ParamDate");
 
-        helper = new MyDBHelper(this, "todaydb.db", null, 1);
+        helper = new MyDBHelper(this, "daydb.db", null, 1);
         if (mId == -1) {
             TextDate.setText(today);
         } else {
             SQLiteDatabase db = helper.getWritableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM todaydb WHERE _id='" + mId
+            Cursor cursor = db.rawQuery("SELECT * FROM daydb WHERE _id='" + mId
                     + "'", null);
 
             if (cursor.moveToNext()) { // data를 추가시킬때 다음 행에 커서를 이동해 추가 시킬 수 있게 함
                 editTitle.setText(cursor.getString(1));
                 TextDate.setText(cursor.getString(2));
-                TextEndTime.setText(cursor.getString(3));
+                TextStartTime.setText(cursor.getString(3));
                 TextEndTime.setText(cursor.getString(4));
                 editlocate.setText(cursor.getString(5));
                 editMemo.setText(cursor.getString(6));
@@ -167,17 +181,14 @@ public class EditActivity extends Activity implements OnClickListener {
 
         imageCaptureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                dispatchTakePictureIntent();
+            public void onClick(View view) {dispatchTakePictureIntent();
             }
         });
 
-        if (mId == -1) {
-            btn2.setVisibility(View.INVISIBLE);
-
-        }
+        if (mId == -1) { btn2.setVisibility(View.INVISIBLE); }
 
     }
+
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -315,15 +326,12 @@ public class EditActivity extends Activity implements OnClickListener {
                 Toast.makeText(getApplicationContext(), "mPhotoFile is null", Toast.LENGTH_SHORT).show();
         } else if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
             Uri sourceUri = null;
-            if (data != null)
-                sourceUri = data.getData();
-            if (sourceUri != null) {
+            if (mVideoFileName != null) {
                 mVideoFileName = "VIDEO"+TextDate.getText().toString() + editTitle.getText().toString()+".mp4";
-                File destination = new File(Environment.getExternalStorageDirectory().getPath()+"/Movies/"+mVideoFileName);
-                saveFile(sourceUri, destination);
+               mVideoFile= new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), mVideoFileName);
                 //mAdapter.addItem(new MediaItem(MediaItem.SDCARD, recFileN, Uri.fromFile(destination) ,MediaItem.VIDEO));
             } else
-                Toast.makeText(getApplicationContext(), "save", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "video is null", Toast.LENGTH_SHORT).show();;
         }
     }
 
@@ -364,7 +372,7 @@ public class EditActivity extends Activity implements OnClickListener {
         switch (v.getId()) {
             case R.id.btnsave:
                 if (mId != -1) {
-                    db.execSQL("UPDATE todaydb SET title='" + editTitle.getText().toString()
+                    db.execSQL("UPDATE daydb SET title='" + editTitle.getText().toString()
                             + "',date='" + TextDate.getText().toString()
                             + "', time='" + TextStartTime.getText().toString()
                             + "', endtime='"+TextEndTime.getText().toString()
@@ -377,7 +385,7 @@ public class EditActivity extends Activity implements OnClickListener {
                             + "';");
                 } else {
                     try {
-                        db.execSQL("INSERT INTO todaydb VALUES(null, '"
+                        db.execSQL("INSERT INTO daydb VALUES(null, '"
                                 + editTitle.getText().toString() + "', '"
                                 + TextDate.getText().toString() + "', '"
                                 + TextStartTime.getText().toString() + "', '"
@@ -396,7 +404,7 @@ public class EditActivity extends Activity implements OnClickListener {
                 break;
             case R.id.btndel:
                 if (mId != -1) {
-                    db.execSQL("DELETE FROM todaydb WHERE _id='" + mId + "';");
+                    db.execSQL("DELETE FROM daydb WHERE _id='" + mId + "';");
                     helper.close();
                 }
                 setResult(RESULT_OK);
@@ -407,6 +415,7 @@ public class EditActivity extends Activity implements OnClickListener {
         }
         finish();
     }
+
 
     protected void onStop() {
         super.onStop();

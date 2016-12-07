@@ -141,11 +141,11 @@ public class MonthFragment extends Fragment {
 
 	}
 	public void loadDB (){
-		helper = new MyDBHelper(getActivity().getApplicationContext(), "todaydb.db", null, 1);
+		helper = new MyDBHelper(getActivity().getApplicationContext(), "daydb.db", null, 1);
 		SQLiteDatabase db = helper.getWritableDatabase();
 
 		cursor = db.rawQuery(
-				"SELECT * FROM todaydb WHERE date = '" + today + "'", null);
+				"SELECT * FROM daydb WHERE date = '" + today + "'", null);
 
 		cursorAdapter = new SimpleCursorAdapter(getActivity(),
 				android.R.layout.simple_list_item_2, cursor, new String[] {

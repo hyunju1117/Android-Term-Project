@@ -18,17 +18,17 @@ public class VideoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_video);
 
         String VIDEO_URL = getIntent().getStringExtra("video_uri");
-        /*finishBtn = (Button) findViewById(R.id.finishBtn);
+        finishBtn = (Button) findViewById(R.id.finishBtn);
 
         finishBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 videoView.stopPlayback();
                 finish();
             }
-        });*/
+        });
 
         videoView = (VideoView) findViewById(R.id.videoView);
 
